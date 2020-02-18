@@ -11,15 +11,15 @@ const itemsFromBackend = [
 
 const columnsFromBackend = 
 	{
-		[uuid()]: { 
+		[1]: { 
 			name: 'Todo',
 			items: itemsFromBackend
 		},
-		[uuid()]: { 
+		[2]: { 
 			name: 'In progress',
 			items: []
 		},
-		[uuid()]: { 
+		[3]: { 
 			name: 'Done',
 			items: []
 		},
@@ -62,12 +62,26 @@ const onDragEnd = (result, columns, setColumns) => {
 	}
 }
 
+const handleNewProject = (newName, columns, setColumns) => {
+		const column = columns[1];
+		const copiedItems = [...column.items, {id:uuid(), content: newName}]
+        setColumns({ 
+			...columns, 
+			[1] : { 
+				...column, 
+				items:copiedItems
+			}
+		})
+    }
+
+
 function App() {
 	const [columns, setColumns] = useState(columnsFromBackend);
 
 
   return (
   	<div style = {{display:'flex', justifyContent:'center', height:'100%'}}> 
+  	    <Form onAddNewProjectName={newName => handleNewProject(newName, columns, setColumns)}/>
   		<DragDropContext onDragEnd = {result=> onDragEnd(result, columns, setColumns)}>
   			{Object.entries(columns).map(([id,column]) => { 
   					return(
