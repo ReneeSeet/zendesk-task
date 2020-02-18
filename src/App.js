@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import Form from './Form.js';
-import TaskColumn from './taskColumn.js'
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 import uuid from 'uuid/v4';
 
@@ -88,7 +87,7 @@ function App() {
   		<DragDropContext onDragEnd = {result=> onDragEnd(result, columns, setColumns)}>
   			{Object.entries(columns).map(([id,column]) => { 
   					return(
-  						<div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+  						<div style={{display:'flex', flexDirection:'column', alignItems:'center'}} key={id} >
   							<h2>{column.name} {column.items.length}</h2>
   								<div style={{margin: 8}}>
 				  					<Droppable droppableId={id} key={id} style={{margin:8}}> 
