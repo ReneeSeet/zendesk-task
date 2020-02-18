@@ -62,9 +62,11 @@ const onDragEnd = (result, columns, setColumns) => {
 	}
 }
 
-const handleNewProject = (newName, columns, setColumns) => {
+const handleNewProject = (newName, columns, setColumns, itemsFromBackend) => {
 		const column = columns[1];
-		const copiedItems = [...column.items, {id:uuid(), content: newName}]
+		const newItem = {id:uuid(), content: newName};
+		const copiedItems = [...column.items, newItem];
+		itemsFromBackend = itemsFromBackend.push(newItem); 
         setColumns({ 
 			...columns, 
 			[1] : { 
@@ -81,7 +83,8 @@ function App() {
 
   return (
   	<div style = {{display:'flex', justifyContent:'center', height:'100%'}}> 
-  	    <Form onAddNewProjectName={newName => handleNewProject(newName, columns, setColumns)}/>
+  	    <Form onAddNewProjectName={newName => handleNewProject(newName, columns, setColumns, itemsFromBackend)}/>
+  	    <h2>{itemsFromBackend.length}</h2>
   		<DragDropContext onDragEnd = {result=> onDragEnd(result, columns, setColumns)}>
   			{Object.entries(columns).map(([id,column]) => { 
   					return(
