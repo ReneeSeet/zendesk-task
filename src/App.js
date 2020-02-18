@@ -12,7 +12,7 @@ const itemsFromBackend = [
 const columnsFromBackend = 
 	{
 		[1]: { 
-			name: 'Todo',
+			name: 'To do',
 			items: itemsFromBackend
 		},
 		[2]: { 
@@ -86,7 +86,7 @@ function App() {
   			{Object.entries(columns).map(([id,column]) => { 
   					return(
   						<div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
-  							<h2>{column.name}</h2>
+  							<h2>{column.name} {column.items.length}</h2>
   								<div style={{margin: 8}}>
 				  					<Droppable droppableId={id} key={id} style={{margin:8}}> 
 				  						{(provided, snapshot) => { 
