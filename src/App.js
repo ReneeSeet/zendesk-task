@@ -81,18 +81,23 @@ function App() {
 
 
   return (
-  	<div style={{display:'flex', flexDirection:"column", width: 'fit-content'}}> 
-  		<div style = {{display:'flex',flexDirection:"row",justifyContent:'space-between'}}>
+  	<div style={{margin: 'auto', display:'flex', flexDirection:'column', width: 'fit-content'}}> 
+  		<div style = {{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
   	    	<Form onAddNewProjectName={newName => handleNewProject(newName, columns, setColumns, itemsFromBackend)}/>
-  	    	<div style={{display:'flex',flexDirection:"column", alignItems:'center'}}> TOTAL <div style={{display:'flex',flexDirection:"column", alignItems:'center',background:'white', border:'1px solid white', padding: '10px 20px 10px 20px'}}><p style ={{margin:"0px"}}>{itemsFromBackend.length}</p><p style ={{margin:"0px"}}>PROJECTS</p></div></div>
+  	    	<div style={{display:'flex',flexDirection:'column', alignItems:'center' ,margin: '20px 20px 0px 0px'}}> TOTAL <div style={{display:'flex',flexDirection:"column", alignItems:'center',background:'white', border:'1px solid white', padding: '10px'}}><p style ={{margin:"0px"}}>{itemsFromBackend.length}</p><p style ={{margin:"0px"}}>PROJECTS</p></div></div>
   	    </div>
   	    <div style = {{display:'flex', flexDirection:"row", height:'100%', alignItems:'center'}}>
 	  		<DragDropContext onDragEnd = {result=> onDragEnd(result, columns, setColumns)}>
 	  			{Object.entries(columns).map(([id,column]) => { 
 	  					return(
 	  						<div style={{display:'flex', flexDirection:'column'}} key={id} >
-	  							<div style = {{ margin: '8px 8px 0px 0px', background: '#a9a9a9',display:'flex',flexDirection:"row",justifyContent:'space-between'}}>{column.name} <div style={{display:'flex',flexDirection:"column", alignItems:'center'}}> TOTAL <div style={{display:'flex',flexDirection:"column", alignItems:'center',background:'white', border:'1px solid white', padding: '10px 20px 10px 20px'}}><p style ={{margin:"0px"}}>{column.items.length}</p><p style ={{margin:"0px"}}>PROJECTS</p></div></div></div>
-	  								<div style={{margin: '0px 8px 8px 0px'}}>
+	  							<div style = {{padding:16, margin: '20px 20px 0px 0px', background: '#a9a9a9',display:'flex',flexDirection:"row",justifyContent:'space-between'}}>
+	  								<h2>{column.name}</h2>
+	  								<div style={{display:'flex',flexDirection:"column", alignItems:'center',background:'white', border:'1px solid white', padding: '10px'}}>
+	  									<p style ={{margin:"0px"}}>{column.items.length}</p><p style ={{margin:"0px"}}>PROJECTS</p>
+	  								</div>
+	  							</div>
+	  								<div style={{margin: '0px 20px 20px 0px'}}>
 					  					<Droppable droppableId={id} key={id} style={{marginRight:8}}> 
 					  						{(provided, snapshot) => { 
 					  							return ( 
@@ -102,7 +107,7 @@ function App() {
 					  									style = {{ 
 					  										background: snapshot.isDraggingOver ? 'lightblue' : 'lightgrey',
 					  										padding: 4, 
-					  										width: 250, 
+					  										width: 300, 
 					  										minHeight: 500
 					  									}}
 					  									>
@@ -116,10 +121,12 @@ function App() {
 					  															{...provided.draggableProps}
 					  															{...provided.dragHandleProps}
 					  															style={{
+
 					  																userSelect:'none',
 					  																padding:16,
-					  																margin:'0 0 8px 0',
-					  																minHeight:'50px',
+					  																margin:'0 0 10px 0',
+					  																height: '30px',
+					  		
 					  																backgroundColor: snapshot.isDragging? '#263B4A' : '#456C86',
 					  																color:'white',
 					  																...provided.draggableProps.style
