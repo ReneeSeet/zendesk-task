@@ -81,68 +81,72 @@ function App() {
 
 
   return (
-  	<div style = {{display:'flex', justifyContent:'center', height:'100%'}}> 
-  	    <Form onAddNewProjectName={newName => handleNewProject(newName, columns, setColumns, itemsFromBackend)}/>
-  	    <h2>{itemsFromBackend.length}</h2>
-  		<DragDropContext onDragEnd = {result=> onDragEnd(result, columns, setColumns)}>
-  			{Object.entries(columns).map(([id,column]) => { 
-  					return(
-  						<div style={{display:'flex', flexDirection:'column', alignItems:'center'}} key={id} >
-  							<h2>{column.name} {column.items.length}</h2>
-  								<div style={{margin: 8}}>
-				  					<Droppable droppableId={id} key={id} style={{margin:8}}> 
-				  						{(provided, snapshot) => { 
-				  							return ( 
-				  								<div
-				  									{...provided.droppableProps}
-				  									ref={provided.innerRef}
-				  									style = {{ 
-				  										background: snapshot.isDraggingOver ? 'lightblue' : 'lightgrey',
-				  										padding: 4, 
-				  										width: 250, 
-				  										minHeight: 500
-				  									}}
-				  									>
-				  									{column.items.map((item,index) => { 
-				  										return ( 
-				  											<Draggable key = {item.id} draggableId={item.id} index={index}>
-				  												{(provided,snapshot)=>{ 
-				  													return(
-				  														<div 
-				  															ref={provided.innerRef} 
-				  															{...provided.draggableProps}
-				  															{...provided.dragHandleProps}
-				  															style={{
-				  																userSelect:'none',
-				  																padding:16,
-				  																margin:'0 0 8px 0',
-				  																minHeight:'50px',
-				  																backgroundColor: snapshot.isDragging? '#263B4A' : '#456C86',
-				  																color:'white',
-				  																...provided.draggableProps.style
-				  															}}>
+  	<div style={{display:'flex', flexDirection:"column", width: 'fit-content'}}> 
+  		<div style = {{display:'flex',flexDirection:"row",justifyContent:'space-between'}}>
+  	    	<Form onAddNewProjectName={newName => handleNewProject(newName, columns, setColumns, itemsFromBackend)}/>
+  	    	<div style={{display:'flex',flexDirection:"column", alignItems:'center'}}> TOTAL <div style={{display:'flex',flexDirection:"column", alignItems:'center',background:'white', border:'1px solid white', padding: '10px 20px 10px 20px'}}><p style ={{margin:"0px"}}>{itemsFromBackend.length}</p><p style ={{margin:"0px"}}>PROJECTS</p></div></div>
+  	    </div>
+  	    <div style = {{display:'flex', flexDirection:"row", height:'100%', alignItems:'center'}}>
+	  		<DragDropContext onDragEnd = {result=> onDragEnd(result, columns, setColumns)}>
+	  			{Object.entries(columns).map(([id,column]) => { 
+	  					return(
+	  						<div style={{display:'flex', flexDirection:'column'}} key={id} >
+	  							<div style = {{ margin: '8px 8px 0px 0px', background: '#a9a9a9',display:'flex',flexDirection:"row",justifyContent:'space-between'}}>{column.name} <div style={{display:'flex',flexDirection:"column", alignItems:'center'}}> TOTAL <div style={{display:'flex',flexDirection:"column", alignItems:'center',background:'white', border:'1px solid white', padding: '10px 20px 10px 20px'}}><p style ={{margin:"0px"}}>{column.items.length}</p><p style ={{margin:"0px"}}>PROJECTS</p></div></div></div>
+	  								<div style={{margin: '0px 8px 8px 0px'}}>
+					  					<Droppable droppableId={id} key={id} style={{marginRight:8}}> 
+					  						{(provided, snapshot) => { 
+					  							return ( 
+					  								<div
+					  									{...provided.droppableProps}
+					  									ref={provided.innerRef}
+					  									style = {{ 
+					  										background: snapshot.isDraggingOver ? 'lightblue' : 'lightgrey',
+					  										padding: 4, 
+					  										width: 250, 
+					  										minHeight: 500
+					  									}}
+					  									>
+					  									{column.items.map((item,index) => { 
+					  										return ( 
+					  											<Draggable key = {item.id} draggableId={item.id} index={index}>
+					  												{(provided,snapshot)=>{ 
+					  													return(
+					  														<div 
+					  															ref={provided.innerRef} 
+					  															{...provided.draggableProps}
+					  															{...provided.dragHandleProps}
+					  															style={{
+					  																userSelect:'none',
+					  																padding:16,
+					  																margin:'0 0 8px 0',
+					  																minHeight:'50px',
+					  																backgroundColor: snapshot.isDragging? '#263B4A' : '#456C86',
+					  																color:'white',
+					  																...provided.draggableProps.style
+					  															}}>
 
-				  															{item.content}
-				  														</div>
+					  															{item.content}
+					  														</div>
 
-				  													)
-				  												}}
-				  											</Draggable>
-				  										)
+					  													)
+					  												}}
+					  											</Draggable>
+					  										)
 
-				  									})}
+					  									})}
 
-				  									{provided.placeholder}
-				  								</div>
-				  							)
-				  						}}
-				  					</Droppable>
-				  				</div>
-	  					</div>
-  					)
-  				})
-  			}
-  		</DragDropContext>
+					  									{provided.placeholder}
+					  								</div>
+					  							)
+					  						}}
+					  					</Droppable>
+					  				</div>
+		  					</div>
+	  					)
+	  				})
+	  			}
+	  		</DragDropContext>
+  		</div>
   	</div>
     
   );
