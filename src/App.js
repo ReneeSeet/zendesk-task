@@ -75,26 +75,33 @@ const handleNewProject = (newName, columns, setColumns, itemsFromBackend) => {
 		})
     }
 
+const mainDiv = {margin: 'auto', display:'flex', flexDirection:'column', width: 'fit-content'};
+const spaceInBetween = {display:'flex',flexDirection:'row',justifyContent:'space-between', margin: '20px 20px 0px 0px'};
+const whiteBox = {display:'flex',flexDirection:"column", alignItems:'center',background:'white', border:'1px solid white', padding: '10px'};
+const columnHeader = {padding:16, margin: '20px 20px 0px 0px', background: '#a9a9a9',display:'flex',flexDirection:"row",justifyContent:'space-between'};
+const columnFlex = {display:'flex',flexDirection:'column', alignItems:'center'};
+const rowFlex = {display:'flex',flexDirection:'row', alignItems:'center'};
+
 
 function App() {
 	const [columns, setColumns] = useState(columnsFromBackend);
 
 
   return (
-  	<div style={{margin: 'auto', display:'flex', flexDirection:'column', width: 'fit-content'}}> 
-  		<div style = {{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
+  	<div style={mainDiv}> 
+  		<div style={spaceInBetween}>
   	    	<Form onAddNewProjectName={newName => handleNewProject(newName, columns, setColumns, itemsFromBackend)}/>
-  	    	<div style={{display:'flex',flexDirection:'column', alignItems:'center' ,margin: '20px 20px 0px 0px'}}> TOTAL <div style={{display:'flex',flexDirection:"column", alignItems:'center',background:'white', border:'1px solid white', padding: '10px'}}><p style ={{margin:"0px"}}>{itemsFromBackend.length}</p><p style ={{margin:"0px"}}>PROJECTS</p></div></div>
+  	    	<div style={columnFlex}> TOTAL <div style={whiteBox}>{itemsFromBackend.length}<text>PROJECTS</text></div></div>
   	    </div>
-  	    <div style = {{display:'flex', flexDirection:"row", height:'100%', alignItems:'center'}}>
+  	    <div style={rowFlex}>
 	  		<DragDropContext onDragEnd = {result=> onDragEnd(result, columns, setColumns)}>
 	  			{Object.entries(columns).map(([id,column]) => { 
 	  					return(
 	  						<div style={{display:'flex', flexDirection:'column'}} key={id} >
-	  							<div style = {{padding:16, margin: '20px 20px 0px 0px', background: '#a9a9a9',display:'flex',flexDirection:"row",justifyContent:'space-between'}}>
+	  							<div style = {columnHeader}>
 	  								<h2>{column.name}</h2>
-	  								<div style={{display:'flex',flexDirection:"column", alignItems:'center',background:'white', border:'1px solid white', padding: '10px'}}>
-	  									<p style ={{margin:"0px"}}>{column.items.length}</p><p style ={{margin:"0px"}}>PROJECTS</p>
+	  								<div style={whiteBox}>
+	  									{column.items.length}<text>PROJECTS</text>
 	  								</div>
 	  							</div>
 	  								<div style={{margin: '0px 20px 20px 0px'}}>
