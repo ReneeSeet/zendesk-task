@@ -1,5 +1,7 @@
 ## Zendesk Task Manager
 
+The application is runnint on renee-zendesk.surge.sh
+
 Clone this repo. 
 
 ### `npm install`
